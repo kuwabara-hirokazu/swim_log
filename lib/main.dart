@@ -73,21 +73,35 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(DateFormat('yyyy/MM/dd').format(logs[index].date)),
-                const SizedBox(height: 8),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      logs[index].totalDistance,
-                      style: const TextStyle(fontSize: 20, color: Colors.blue),
+                    Text(DateFormat('yyyy/MM/dd').format(logs[index].date)),
+                    const SizedBox(height: 8),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Icon(
+                          Icons.pool,
+                          size: 24,
+                        ),
+                        Text(
+                          logs[index].totalDistance,
+                          style: const TextStyle(fontSize: 20, color: Colors.blue),
+                        ),
+                        const SizedBox(width: 8),
+                        const Text('m'),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    const Text('m'),
                   ],
+                ),
+                const Icon(
+                  Icons.more_vert,
+                  size: 24,
                 ),
               ],
             ),
