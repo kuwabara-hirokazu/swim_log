@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:swim_log/model/swim_log.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,39 +41,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final list = [
-      "1000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000",
-      "1500",
-      "2000"
+    final swimLog = [
+      SwimLog("1000", DateTime(2022, 8, 1)),
+      SwimLog("1200", DateTime(2022, 8, 2)),
+      SwimLog("1400", DateTime(2022, 8, 3)),
+      SwimLog("1500", DateTime(2022, 8, 4)),
+      SwimLog("1600", DateTime(2022, 8, 5)),
+      SwimLog("1800", DateTime(2022, 8, 6)),
+      SwimLog("1800", DateTime(2022, 8, 6)),
+      SwimLog("1800", DateTime(2022, 8, 6)),
+      SwimLog("1800", DateTime(2022, 8, 6)),
+      SwimLog("1800", DateTime(2022, 8, 6)),
+      SwimLog("1800", DateTime(2022, 8, 6)),
     ];
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: _logItems(list));
+        body: _logItems(swimLog));
   }
 
-  Widget _logItems(List<String> list) {
+  Widget _logItems(List<SwimLog> logs) {
     return ListView.builder(
-      itemCount: list.length,
+      itemCount: logs.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           decoration: const BoxDecoration(
@@ -84,13 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("2022/08/01"),
+                Text(DateFormat('yyyy/MM/dd').format(logs[index].date)),
                 const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      list[index],
+                      logs[index].totalDistance,
                       style: const TextStyle(fontSize: 20, color: Colors.blue),
                     ),
                     const SizedBox(width: 8),
