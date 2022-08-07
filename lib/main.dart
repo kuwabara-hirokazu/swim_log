@@ -42,17 +42,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final swimLog = [
-      SwimLog("1000", DateTime(2022, 8, 1)),
-      SwimLog("1200", DateTime(2022, 8, 2)),
-      SwimLog("1400", DateTime(2022, 8, 3)),
-      SwimLog("1500", DateTime(2022, 8, 4)),
-      SwimLog("1600", DateTime(2022, 8, 5)),
-      SwimLog("1800", DateTime(2022, 8, 6)),
-      SwimLog("1800", DateTime(2022, 8, 6)),
-      SwimLog("1800", DateTime(2022, 8, 6)),
-      SwimLog("1800", DateTime(2022, 8, 6)),
-      SwimLog("1800", DateTime(2022, 8, 6)),
-      SwimLog("1800", DateTime(2022, 8, 6)),
+      SwimLog('1000', DateTime(2022, 8, 1)),
+      SwimLog('1200', DateTime(2022, 8, 2)),
+      SwimLog('1400', DateTime(2022, 8, 3)),
+      SwimLog('1500', DateTime(2022, 8, 4)),
+      SwimLog('1600', DateTime(2022, 8, 5)),
+      SwimLog('1800', DateTime(2022, 8, 6)),
+      SwimLog('1800', DateTime(2022, 8, 6)),
+      SwimLog('1800', DateTime(2022, 8, 6)),
+      SwimLog('1800', DateTime(2022, 8, 6)),
+      SwimLog('1800', DateTime(2022, 8, 6)),
+      SwimLog('1800', DateTime(2022, 8, 6)),
     ];
     return Scaffold(
         appBar: AppBar(
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: const TextStyle(fontSize: 20, color: Colors.blue),
                     ),
                     const SizedBox(width: 8),
-                    const Text("m"),
+                    const Text('m'),
                   ],
                 ),
               ],
