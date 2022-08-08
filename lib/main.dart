@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:swim_log/log_detail.dart';
 import 'package:swim_log/model/swim_log.dart';
 
 void main() {
@@ -57,6 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LogDetail()),
+                );
+              },
+            )
+          ],
         ),
         body: _logItems(swimLog));
   }
