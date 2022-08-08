@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class LogDetail extends StatelessWidget {
+class LogDetail extends StatefulWidget {
   const LogDetail({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5.0),
-      borderSide: const BorderSide(color: Color(0xFFd3d3d3)),
-    );
+  State<StatefulWidget> createState() => _LogDetail();
+}
 
+class _LogDetail extends State<LogDetail> {
+  OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(5.0),
+    borderSide: const BorderSide(color: Color(0xFFd3d3d3)),
+  );
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
