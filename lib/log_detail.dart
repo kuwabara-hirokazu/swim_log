@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class LogDetail extends StatefulWidget {
   const LogDetail({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _LogDetail extends State<LogDetail> {
   );
 
   DateTime _date = DateTime.now();
+  String distance = '';
 
   Future _pickDate(BuildContext context) async {
     final newDate = await showDatePicker(
@@ -54,6 +56,9 @@ class _LogDetail extends State<LogDetail> {
                   SizedBox(
                     width: 100,
                     child: TextFormField(
+                      onChanged: (text) {
+                        distance = text;
+                      },
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
@@ -81,12 +86,16 @@ class _LogDetail extends State<LogDetail> {
                   SizedBox(
                     width: 160,
                     child: TextFormField(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                        controller:
+                            TextEditingController(text: DateFormat('yyyy/MM/dd').format(_date)),
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFf0f8ff),
                             focusedBorder: outlineInputBorder,
                             enabledBorder: outlineInputBorder,
-                            hintText: '2022/08/01',
                             suffixIcon: IconButton(
                                 icon: const Icon(Icons.calendar_month),
                                 onPressed: () {
