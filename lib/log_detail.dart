@@ -14,6 +14,21 @@ class _LogDetail extends State<LogDetail> {
     borderSide: const BorderSide(color: Color(0xFFd3d3d3)),
   );
 
+  DateTime _date = DateTime.now();
+
+  Future _pickDate(BuildContext context) async {
+    final newDate = await showDatePicker(
+        context: context,
+        initialDate: _date,
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime.now(),
+        helpText: '日付選択');
+
+    if (newDate != null) {
+      setState(() => _date = newDate);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,29 +39,61 @@ class _LogDetail extends State<LogDetail> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 4, bottom: 4),
-                child: Text("距離",
-                    style: TextStyle(
-                      color: Color(0xFF758492),
-                    )),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 4, bottom: 4),
+                    child: Text("距離",
+                        style: TextStyle(
+                          color: Color(0xFF758492),
+                        )),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xFFf0f8ff),
+                          focusedBorder: outlineInputBorder,
+                          enabledBorder: outlineInputBorder,
+                          hintText: '0',
+                          suffixText: 'm'),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 100,
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFf0f8ff),
-                      focusedBorder: outlineInputBorder,
-                      enabledBorder: outlineInputBorder,
-                      hintText: '0',
-                      suffixText: 'm'),
-                ),
+              const SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 4, bottom: 4),
+                    child: Text("日付",
+                        style: TextStyle(
+                          color: Color(0xFF758492),
+                        )),
+                  ),
+                  SizedBox(
+                    width: 160,
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xFFf0f8ff),
+                            focusedBorder: outlineInputBorder,
+                            enabledBorder: outlineInputBorder,
+                            hintText: '2022/08/01',
+                            suffixIcon: IconButton(
+                                icon: const Icon(Icons.calendar_month),
+                                onPressed: () {
+                                  _pickDate(context);
+                                }))),
+                  ),
+                ],
               ),
             ],
           ),
