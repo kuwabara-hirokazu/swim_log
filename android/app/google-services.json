@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "282047193952",
+    "project_id": "swimlog-5f737",
+    "storage_bucket": "swimlog-5f737.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282047193952:android:e2fdef50039019c26e3405",
+        "android_client_info": {
+          "package_name": "com.example.swim_log"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282047193952-p0lqj849cbmjjeerqaqsffvdaqr179oi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHXu7IFwqy4HVfwWbSGGUKVZCmeu8C7DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282047193952-p0lqj849cbmjjeerqaqsffvdaqr179oi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "282047193952-6q8squisn28u476s57u04ktj4ouv9v11.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.swimLog"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
