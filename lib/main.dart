@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:swim_log/log_detail.dart';
+import 'package:swim_log/log_firestore.dart';
 import 'package:swim_log/model/swim_log.dart';
 
 import 'firebase_options.dart';
@@ -12,6 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await LogFireStore.fetchLog();
   runApp(const MyApp());
 }
 
@@ -40,28 +42,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final swimLog = [
-      SwimLog('1000', DateTime(2022, 8, 1)),
-      SwimLog('1200', DateTime(2022, 8, 2)),
-      SwimLog('1400', DateTime(2022, 8, 3)),
-      SwimLog('1500', DateTime(2022, 8, 4)),
-      SwimLog('1600', DateTime(2022, 8, 5)),
-      SwimLog('1800', DateTime(2022, 8, 6)),
-      SwimLog('1800', DateTime(2022, 8, 6)),
-      SwimLog('1800', DateTime(2022, 8, 6)),
-      SwimLog('1800', DateTime(2022, 8, 6)),
-      SwimLog('1800', DateTime(2022, 8, 6)),
-      SwimLog('1800', DateTime(2022, 8, 6)),
+      SwimLog(1000, DateTime(2022, 8, 1)),
+      SwimLog(1200, DateTime(2022, 8, 2)),
+      SwimLog(1400, DateTime(2022, 8, 3)),
+      SwimLog(1500, DateTime(2022, 8, 4)),
+      SwimLog(1600, DateTime(2022, 8, 5)),
+      SwimLog(1800, DateTime(2022, 8, 6)),
+      SwimLog(1800, DateTime(2022, 8, 6)),
+      SwimLog(1800, DateTime(2022, 8, 6)),
+      SwimLog(1800, DateTime(2022, 8, 6)),
+      SwimLog(1800, DateTime(2022, 8, 6)),
+      SwimLog(1800, DateTime(2022, 8, 6)),
     ];
     return Scaffold(
         appBar: AppBar(
@@ -110,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           size: 24,
                         ),
                         Text(
-                          logs[index].totalDistance,
+                          logs[index].totalDistance.toString(),
                           style: const TextStyle(fontSize: 20, color: Colors.blue),
                         ),
                         const SizedBox(width: 8),
