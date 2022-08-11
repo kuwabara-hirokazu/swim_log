@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:logger/logger.dart';
 import 'package:swim_log/model/swim_log.dart';
 
 class LogFireStore {
@@ -10,6 +11,7 @@ class LogFireStore {
       final snapShot = await _logCollection.get();
       return snapShot.docs.map((doc) => toSwimLog(doc.data())).toList();
     } catch (e) {
+      Logger().e('fetchError: $e');
       return List.empty();
     }
   }
