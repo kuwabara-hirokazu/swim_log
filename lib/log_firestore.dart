@@ -9,17 +9,10 @@ class LogFireStore {
   static Future<List<SwimLog>> fetchLog() async {
     try {
       final snapShot = await _logCollection.get();
-      return snapShot.docs.map((doc) => toSwimLog(doc.data())).toList();
+      return snapShot.docs.map((doc) => SwimLog.from(doc.data())).toList();
     } catch (e) {
       Logger().e('fetchError: $e');
       return List.empty();
     }
-  }
-
-  static SwimLog toSwimLog(Map<String, dynamic> data) {
-    final distance = data['distance'];
-    final timestamp = data['date'];
-    final date = (timestamp is Timestamp) ? timestamp.toDate() : DateTime.now();
-    return SwimLog(distance, date);
   }
 }
