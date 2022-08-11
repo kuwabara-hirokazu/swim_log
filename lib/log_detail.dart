@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:swim_log/log_firestore.dart';
 
 class LogDetail extends StatefulWidget {
   const LogDetail({Key? key}) : super(key: key);
@@ -31,6 +32,10 @@ class _LogDetail extends State<LogDetail> {
     }
   }
 
+  Future<void> registerLog(int distance, DateTime createdAt) async {
+    await LogFireStore.registerLog(distance, createdAt);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -38,6 +43,21 @@ class _LogDetail extends State<LogDetail> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('記録詳細'),
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: () {
+                  try {
+                    registerLog(int.parse(distance), _date);
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text('保存しました')));
+                    Navigator.pop(context);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text('保存に失敗しました')));
+                  }
+                })
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),

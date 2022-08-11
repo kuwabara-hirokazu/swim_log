@@ -6,6 +6,10 @@ class LogFireStore {
   static final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   static final _logCollection = _firebaseFirestore.collection('log');
 
+  static Future<void> registerLog(int distance, DateTime createdAt) async {
+    await _logCollection.add({'distance': distance, 'date': createdAt});
+  }
+
   static Future<List<SwimLog>> fetchLog() async {
     try {
       final snapShot = await _logCollection.get();
