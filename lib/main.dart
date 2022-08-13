@@ -65,8 +65,19 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: FutureBuilder(
-            future: getSwimLog(), builder: (context, snapShot) => _logItems(swimLog)));
+        body: FutureBuilder<List<SwimLog>>(
+            future: LogFireStore.fetchLog(),
+            builder: (context, snapShot) {
+              if (snapShot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                if (snapShot.hasData) {
+                  return _logItems(snapShot.data!);
+                } else {
+                  return const Center(child: Text('履歴の取得に失敗しました'));
+                }
+              }
+            }));
   }
 
   Widget _logItems(List<SwimLog> logs) {
