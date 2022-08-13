@@ -42,12 +42,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<SwimLog> swimLog = [];
-
-  Future<void> getSwimLog() async {
-    swimLog = await LogFireStore.fetchLog();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
