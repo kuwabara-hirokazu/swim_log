@@ -60,7 +60,7 @@ class _LogDetail extends State<LogRegister> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
               Column(
@@ -92,7 +92,7 @@ class _LogDetail extends State<LogRegister> {
                   ),
                 ],
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 24),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
