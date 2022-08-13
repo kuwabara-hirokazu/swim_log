@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:swim_log/log_detail.dart';
 import 'package:swim_log/log_firestore.dart';
+import 'package:swim_log/log_register.dart';
 import 'package:swim_log/model/swim_log.dart';
 
 import 'firebase_options.dart';
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LogDetail()),
+                  MaterialPageRoute(builder: (context) => const LogRegister()),
                 );
               },
             )

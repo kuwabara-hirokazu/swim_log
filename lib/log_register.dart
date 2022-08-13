@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:swim_log/log_firestore.dart';
 
-class LogDetail extends StatefulWidget {
-  const LogDetail({Key? key}) : super(key: key);
+class LogRegister extends StatefulWidget {
+  const LogRegister({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LogDetail();
 }
 
-class _LogDetail extends State<LogDetail> {
+class _LogDetail extends State<LogRegister> {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5.0),
     borderSide: const BorderSide(color: Color(0xFFd3d3d3)),
@@ -42,7 +42,7 @@ class _LogDetail extends State<LogDetail> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('記録詳細'),
+          title: const Text('記録登録'),
           actions: [
             IconButton(
                 icon: const Icon(Icons.save),
