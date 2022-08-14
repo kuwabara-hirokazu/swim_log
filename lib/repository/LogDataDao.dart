@@ -7,4 +7,8 @@ class LogDataDao {
   void registerLog(LogData logData) {
     _collection.add(logData.toJson());
   }
+
+  Stream<QuerySnapshot> getSnapshot() {
+    return _collection.orderBy('createDate', descending: true).snapshots();
+  }
 }
