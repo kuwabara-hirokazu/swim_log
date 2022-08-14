@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:swim_log/log_firestore.dart';
 import 'package:swim_log/log_register.dart';
 import 'package:swim_log/repository/LogDataDao.dart';
 
@@ -15,7 +14,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await LogFireStore.fetchLog();
   runApp(const ProviderScope(child: MyApp()));
 }
 

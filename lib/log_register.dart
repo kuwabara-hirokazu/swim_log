@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:swim_log/data/log_data.dart';
-import 'package:swim_log/log_firestore.dart';
 import 'package:swim_log/repository/LogDataDao.dart';
 
 class LogRegister extends StatefulWidget {
@@ -34,10 +33,6 @@ class _LogDetail extends State<LogRegister> {
     if (newDate != null) {
       setState(() => _date = newDate);
     }
-  }
-
-  Future<void> registerLog(int distance, DateTime createdAt) async {
-    await LogFireStore.registerLog(distance, createdAt);
   }
 
   @override
