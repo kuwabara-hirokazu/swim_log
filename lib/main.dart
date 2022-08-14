@@ -47,12 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    super.initState();
     _streamProvider = StreamProvider<List<LogData>>((ref) => _logDataDao
         .getSnapshot()
         .map((event) => event.docs.map((data) => _convert(data.data())).toList()));
   }
 
   LogData _convert(Object? obj) {
+    // ToDo nullのときの処理をリファクタ
     if (obj == null) {
       return LogData(totalDistance: 0, createDate: DateTime.now());
     }
@@ -81,9 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (context, ref, child) {
             final provider = ref.watch(_streamProvider);
             return provider.when(
-                data: (data) {
-                  return _logItems(data);
-                },
+                data: (data) => _logItems(data),
                 error: (error, stackTrace) => Text('履歴取得に失敗: $error'),
                 loading: () => const CircularProgressIndicator());
           },
