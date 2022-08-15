@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:swim_log/log_register.dart';
-import 'package:swim_log/repository/LogDataDao.dart';
 
 import 'data/log_data.dart';
 import 'firebase_options.dart';
+import 'logs_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,24 +42,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final LogDataDao _logDataDao = LogDataDao();
+  final LogsViewModel _viewModel = LogsViewModel();
   late StreamProvider _streamProvider;
 
   @override
   void initState() {
     super.initState();
-    _streamProvider = StreamProvider<List<LogData>>((ref) => _logDataDao
-        .getSnapshot()
-        .map((event) => event.docs.map((data) => _convert(data.data())).toList()));
-  }
-
-  LogData _convert(Object? obj) {
-    // ToDo nullのときの処理をリファクタ
-    if (obj == null) {
-      return LogData(totalDistance: 0, createDate: DateTime.now());
-    }
-    var map = obj as Map<String, dynamic>;
-    return LogData.fromJson(map);
+    _streamProvider = _viewModel.getStreamProvider();
   }
 
   @override
