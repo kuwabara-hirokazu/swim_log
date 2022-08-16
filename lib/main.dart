@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:swim_log/log_firestore.dart';
 import 'package:swim_log/log_register.dart';
-import 'package:swim_log/model/swim_log.dart';
+import 'package:swim_log/repository/LogDataDao.dart';
 
+import 'data/log_data.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,8 +14,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await LogFireStore.fetchLog();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -42,6 +42,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final LogDataDao _logDataDao = LogDataDao();
+  late StreamProvider _streamProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _streamProvider = StreamProvider<List<LogData>>((ref) => _logDataDao
+        .getSnapshot()
+        .map((event) => event.docs.map((data) => _convert(data.data())).toList()));
+  }
+
+  LogData _convert(Object? obj) {
+    // ToDo nullのときの処理をリファクタ
+    if (obj == null) {
+      return LogData(totalDistance: 0, createDate: DateTime.now());
+    }
+    var map = obj as Map<String, dynamic>;
+    return LogData.fromJson(map);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,22 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: FutureBuilder<List<SwimLog>>(
-            future: LogFireStore.fetchLog(),
-            builder: (context, snapShot) {
-              if (snapShot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                if (snapShot.hasData) {
-                  return _logItems(snapShot.data!);
-                } else {
-                  return const Center(child: Text('履歴の取得に失敗しました'));
-                }
-              }
-            }));
+        body: Consumer(
+          builder: (context, ref, child) {
+            final provider = ref.watch(_streamProvider);
+            return provider.when(
+                data: (data) => _logItems(data),
+                error: (error, stackTrace) => Text('履歴取得に失敗: $error'),
+                loading: () => const CircularProgressIndicator());
+          },
+        ));
   }
 
-  Widget _logItems(List<SwimLog> logs) {
+  Widget _logItems(List<LogData> logs) {
     return ListView.builder(
       itemCount: logs.length,
       itemBuilder: (BuildContext context, int index) {
@@ -92,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(DateFormat('yyyy/MM/dd').format(logs[index].date)),
+                    Text(DateFormat('yyyy/MM/dd').format(logs[index].createDate)),
                     const SizedBox(height: 8),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,

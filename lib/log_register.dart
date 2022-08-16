@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:swim_log/log_firestore.dart';
+import 'package:swim_log/data/log_data.dart';
+import 'package:swim_log/repository/LogDataDao.dart';
 
 class LogRegister extends StatefulWidget {
   const LogRegister({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class _LogDetail extends State<LogRegister> {
     borderRadius: BorderRadius.circular(5.0),
     borderSide: const BorderSide(color: Color(0xFFd3d3d3)),
   );
+
+  LogDataDao _logDataDao = LogDataDao();
 
   DateTime _date = DateTime.now();
   String distance = '';
@@ -32,10 +35,6 @@ class _LogDetail extends State<LogRegister> {
     }
   }
 
-  Future<void> registerLog(int distance, DateTime createdAt) async {
-    await LogFireStore.registerLog(distance, createdAt);
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,15 +46,17 @@ class _LogDetail extends State<LogRegister> {
             IconButton(
                 icon: const Icon(Icons.save),
                 onPressed: () {
-                  try {
-                    registerLog(int.parse(distance), _date);
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('保存しました')));
-                    Navigator.pop(context);
-                  } catch (e) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('保存に失敗しました')));
-                  }
+                  LogData log = LogData(totalDistance: int.parse(distance), createDate: _date);
+                  _logDataDao.registerLog(log);
+                  // try {
+                  //   registerLog(int.parse(distance), _date);
+                  //   ScaffoldMessenger.of(context)
+                  //       .showSnackBar(const SnackBar(content: Text('保存しました')));
+                  //   Navigator.pop(context);
+                  // } catch (e) {
+                  //   ScaffoldMessenger.of(context)
+                  //       .showSnackBar(const SnackBar(content: Text('保存に失敗しました')));
+                  // }
                 })
           ],
         ),
