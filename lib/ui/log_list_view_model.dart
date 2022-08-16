@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swim_log/repository/LogDataDao.dart';
 
-import 'data/log_data.dart';
+import '../data/log_data.dart';
 
-class LogsViewModel {
+class LogListViewModel {
   final LogDataDao _logDataDao = LogDataDao();
 
   StreamProvider getStreamProvider() {
