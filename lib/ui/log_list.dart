@@ -27,6 +27,8 @@ class _LogListState extends ConsumerState<LogList> {
 
   @override
   Widget build(BuildContext context) {
+    final asyncValue = ref.watch(_streamProvider);
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -42,10 +44,12 @@ class _LogListState extends ConsumerState<LogList> {
             )
           ],
         ),
-        body: ref.watch(_streamProvider).when(
-            data: (data) => _logItems(data),
-            error: (error, stackTrace) => Text('履歴取得に失敗: $error'),
-            loading: () => const CircularProgressIndicator()));
+        body: Center(
+          child: asyncValue.when(
+              data: (data) => _logItems(data),
+              error: (error, stackTrace) => Text('履歴取得に失敗: $error'),
+              loading: () => const CircularProgressIndicator()),
+        ));
   }
 
   Widget _logItems(List<LogData> logs) {
