@@ -6,16 +6,16 @@ import 'package:swim_log/ui/log_register.dart';
 import '../data/log_data.dart';
 import 'log_list_view_model.dart';
 
-class LogList extends StatefulWidget {
+class LogList extends ConsumerStatefulWidget {
   const LogList({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<LogList> createState() => _LogListState();
+  ConsumerState<LogList> createState() => _LogListState();
 }
 
-class _LogListState extends State<LogList> {
+class _LogListState extends ConsumerState<LogList> {
   final LogListViewModel _viewModel = LogListViewModel();
   late StreamProvider _streamProvider;
 
@@ -42,15 +42,10 @@ class _LogListState extends State<LogList> {
             )
           ],
         ),
-        body: Consumer(
-          builder: (context, ref, child) {
-            final provider = ref.watch(_streamProvider);
-            return provider.when(
-                data: (data) => _logItems(data),
-                error: (error, stackTrace) => Text('履歴取得に失敗: $error'),
-                loading: () => const CircularProgressIndicator());
-          },
-        ));
+        body: ref.watch(_streamProvider).when(
+            data: (data) => _logItems(data),
+            error: (error, stackTrace) => Text('履歴取得に失敗: $error'),
+            loading: () => const CircularProgressIndicator()));
   }
 
   Widget _logItems(List<LogData> logs) {
