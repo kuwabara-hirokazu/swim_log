@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:swim_log/data/log_data.dart';
 import 'package:swim_log/repository/LogDataDao.dart';
+import 'package:swim_log/util/DateTimeExt.dart';
 
 class LogRegister extends StatefulWidget {
   const LogRegister({Key? key}) : super(key: key);
@@ -110,8 +110,7 @@ class _LogDetail extends State<LogRegister> {
                         onTap: () {
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
-                        controller:
-                            TextEditingController(text: DateFormat('yyyy/MM/dd').format(_date)),
+                        controller: TextEditingController(text: _date.toFormatString()),
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFf0f8ff),

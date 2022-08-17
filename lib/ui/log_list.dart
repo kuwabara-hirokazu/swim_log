@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:swim_log/ui/log_register.dart';
+import 'package:swim_log/util/DateTimeExt.dart';
 
 import '../data/log_data.dart';
 import 'log_list_view_model.dart';
@@ -70,7 +70,7 @@ class _LogListState extends ConsumerState<LogList> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(DateFormat('yyyy/MM/dd').format(logs[index].createDate)),
+                    Text(logs[index].createDate.toFormatString()),
                     const SizedBox(height: 8),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
