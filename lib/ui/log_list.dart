@@ -62,43 +62,48 @@ class _LogListState extends ConsumerState<LogList> {
               bottom: BorderSide(color: Colors.grey),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(logs[index].createDate.toFormatString()),
-                    const SizedBox(height: 8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.pool,
-                          size: 24,
-                        ),
-                        Text(
-                          logs[index].totalDistance.toString(),
-                          style: const TextStyle(fontSize: 20, color: Colors.blue),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text('m'),
-                      ],
-                    ),
-                  ],
-                ),
-                const Icon(
-                  Icons.more_vert,
-                  size: 24,
-                ),
-              ],
-            ),
-          ),
+          child: Padding(padding: const EdgeInsets.all(12.0), child: _logItem(logs[index])),
         );
       },
     );
   }
+}
+
+Widget _logItem(LogData logData) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(logData.createDate.toFormatString()),
+          const SizedBox(height: 8),
+          _distance(logData.totalDistance.toString())
+        ],
+      ),
+      const Icon(
+        Icons.more_vert,
+        size: 24,
+      ),
+    ],
+  );
+}
+
+Widget _distance(String distance) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      const Icon(
+        Icons.pool,
+        size: 24,
+      ),
+      Text(
+        distance,
+        style: const TextStyle(fontSize: 20, color: Colors.blue),
+      ),
+      const SizedBox(width: 8),
+      const Text('m'),
+    ],
+  );
 }
