@@ -4,6 +4,8 @@ import 'package:swim_log/data/log_data.dart';
 import 'package:swim_log/ui/log_register_view_model.dart';
 import 'package:swim_log/util/DateTimeExt.dart';
 
+import '../data/result.dart';
+
 class LogRegister extends StatefulWidget {
   const LogRegister({Key? key}) : super(key: key);
 
@@ -47,16 +49,15 @@ class _LogDetail extends State<LogRegister> {
                 icon: const Icon(Icons.save),
                 onPressed: () {
                   LogData log = LogData(totalDistance: int.parse(distance), createDate: _date);
-                  viewModel.registerLog(log);
-                  // try {
-                  //   registerLog(int.parse(distance), _date);
-                  //   ScaffoldMessenger.of(context)
-                  //       .showSnackBar(const SnackBar(content: Text('保存しました')));
-                  //   Navigator.pop(context);
-                  // } catch (e) {
-                  //   ScaffoldMessenger.of(context)
-                  //       .showSnackBar(const SnackBar(content: Text('保存に失敗しました')));
-                  // }
+                  final Result result = viewModel.registerLog(log);
+                  result.when(success: (success) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text('保存しました')));
+                    Navigator.pop(context);
+                  }, failure: (String errorMessage) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(errorMessage)));
+                  });
                 })
           ],
         ),
