@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:swim_log/data/log_data.dart';
 import 'package:swim_log/ui/log_register_view_model.dart';
 import 'package:swim_log/util/DateTimeExt.dart';
 
@@ -48,8 +47,7 @@ class _LogDetail extends State<LogRegister> {
             IconButton(
                 icon: const Icon(Icons.save),
                 onPressed: () {
-                  LogData log = LogData(totalDistance: int.parse(distance), createDate: _date);
-                  final Result result = viewModel.registerLog(log);
+                  final Result result = viewModel.registerLog(distance, _date);
                   result.when(success: (success) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(const SnackBar(content: Text('保存しました')));
