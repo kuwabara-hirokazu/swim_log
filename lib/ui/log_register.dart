@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swim_log/data/log_data.dart';
-import 'package:swim_log/repository/LogDataDao.dart';
+import 'package:swim_log/ui/log_register_view_model.dart';
 import 'package:swim_log/util/DateTimeExt.dart';
 
 class LogRegister extends StatefulWidget {
@@ -17,7 +17,7 @@ class _LogDetail extends State<LogRegister> {
     borderSide: const BorderSide(color: Color(0xFFd3d3d3)),
   );
 
-  LogDataDao _logDataDao = LogDataDao();
+  final LogRegisterViewModel viewModel = LogRegisterViewModel();
 
   DateTime _date = DateTime.now();
   String distance = '';
@@ -47,7 +47,7 @@ class _LogDetail extends State<LogRegister> {
                 icon: const Icon(Icons.save),
                 onPressed: () {
                   LogData log = LogData(totalDistance: int.parse(distance), createDate: _date);
-                  _logDataDao.registerLog(log);
+                  viewModel.registerLog(log);
                   // try {
                   //   registerLog(int.parse(distance), _date);
                   //   ScaffoldMessenger.of(context)
