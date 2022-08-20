@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swim_log/ui/log_register_view_model.dart';
+import 'package:swim_log/util/ContextExt.dart';
 import 'package:swim_log/util/DateTimeExt.dart';
 
 import '../data/result.dart';
@@ -49,12 +50,10 @@ class _LogDetail extends State<LogRegister> {
                 onPressed: () {
                   final Result result = viewModel.registerLog(distance, _date);
                   result.when(success: (success) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('保存しました')));
+                    context.showSnackBar('保存しました');
                     Navigator.pop(context);
                   }, failure: (String errorMessage) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(errorMessage)));
+                    context.showSnackBar(errorMessage);
                   });
                 })
           ],
