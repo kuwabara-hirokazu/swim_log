@@ -47,8 +47,8 @@ class _LogDetail extends State<LogRegister> {
           actions: [
             IconButton(
                 icon: const Icon(Icons.save),
-                onPressed: () {
-                  final Result result = viewModel.registerLog(distance, _date);
+                onPressed: () async {
+                  final Result result = await viewModel.registerLog(distance, _date);
                   result.when(success: (success) {
                     context.showSnackBar('保存しました');
                     Navigator.pop(context);

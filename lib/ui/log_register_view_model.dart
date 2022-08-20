@@ -7,12 +7,12 @@ import '../repository/LogDataDao.dart';
 class LogRegisterViewModel {
   final LogDataDao _logDataDao = LogDataDao();
 
-  Result registerLog(String distance, DateTime date) {
+  Future<Result> registerLog(String distance, DateTime date) async {
     try {
       LogData logData = LogData(totalDistance: int.parse(distance), createDate: date);
       if (logData.totalDistance < 1) return const Result.failure('1m以上の距離を入力してください');
 
-      _logDataDao.registerLog(logData);
+      await _logDataDao.registerLog(logData);
       return const Result.success(null);
     } on FormatException catch (e) {
       return const Result.failure('1m以上の距離を入力してください');
