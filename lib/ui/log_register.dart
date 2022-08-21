@@ -21,19 +21,16 @@ class _LogDetail extends State<LogRegister> {
 
   final LogRegisterViewModel viewModel = LogRegisterViewModel();
 
-  DateTime _date = DateTime.now();
-  String distance = '';
-
   Future _pickDate(BuildContext context) async {
     final newDate = await showDatePicker(
         context: context,
-        initialDate: _date,
+        initialDate: viewModel.date,
         firstDate: DateTime(DateTime.now().year - 1),
         lastDate: DateTime.now(),
         helpText: '日付選択');
 
     if (newDate != null) {
-      setState(() => _date = newDate);
+      setState(() => viewModel.date = newDate);
     }
   }
 
@@ -48,7 +45,7 @@ class _LogDetail extends State<LogRegister> {
             IconButton(
                 icon: const Icon(Icons.save),
                 onPressed: () async {
-                  final Result result = await viewModel.registerLog(distance, _date);
+                  final Result result = await viewModel.registerLog();
                   result.when(success: (success) {
                     context.showSnackBar('保存しました');
                     Navigator.pop(context);
@@ -76,7 +73,7 @@ class _LogDetail extends State<LogRegister> {
                     width: 100,
                     child: TextFormField(
                       onChanged: (text) {
-                        distance = text;
+                        viewModel.distance = text;
                       },
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -108,7 +105,7 @@ class _LogDetail extends State<LogRegister> {
                         onTap: () {
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
-                        controller: TextEditingController(text: _date.toFormatString()),
+                        controller: TextEditingController(text: viewModel.date.toFormatString()),
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFf0f8ff),

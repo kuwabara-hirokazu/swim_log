@@ -7,7 +7,10 @@ import '../repository/LogDataDao.dart';
 class LogRegisterViewModel {
   final LogDataDao _logDataDao = LogDataDao();
 
-  Future<Result> registerLog(String distance, DateTime date) async {
+  DateTime date = DateTime.now();
+  String distance = '';
+
+  Future<Result> registerLog() async {
     try {
       LogData logData = LogData(totalDistance: int.parse(distance), createDate: date);
       if (logData.totalDistance < 1) return const Result.failure('1m以上の距離を入力してください');
